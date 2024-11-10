@@ -1,0 +1,25 @@
+{
+  "name": "image-processor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "compress": "node index.js q=80",
+    "compress:png": "node index.js q=80 ext=png",
+    "compress:jpg": "node index.js q=80 ext=jpg",
+    "scale:75": "node index.js q=80 scale=0.75",
+    "scale:50": "node index.js q=80 scale=0.50",
+    "scale:25": "node index.js q=80 scale=0.25"
+  },
+  "keywords": [
+    "image"
+  ],
+  "author": "Bishoy Gamal",
+  "license": "ISC",
+  "description": "Image compression and conversion script",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "sharp": "^0.33.4"
+  }
+}
