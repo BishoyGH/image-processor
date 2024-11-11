@@ -1,18 +1,22 @@
 {
   "name": "image-processor",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "og": "node index.js q=80 w=1200 h=630",
-    "og:twitter": "node index.js q=80 w=1200 h=675",
-    "compress": "node index.js q=80",
-    "compress:png": "node index.js q=80 ext=png",
-    "compress:jpg": "node index.js q=80 ext=jpg",
-    "scale:75": "node index.js q=80 s=0.75",
-    "scale:50": "node index.js q=80 s=0.50",
-    "scale:25": "node index.js q=80 s=0.25"
+    "instagram": "node index.js w=1080 h=1080 fit=cover",
+    "facebook": "node index.js w=1200 h=630 fit=cover",
+    "twitter": "node index.js w=1200 h=675 fit=cover",
+    "linkedin": "node index.js w=1104 h=736 fit=cover",
+    "pinterest": "node index.js w=1000 h=1500 fit=cover",
+    "web:product": "node index.js w=800 q=85 ext=webp",
+    "web:background": "node index.js w=1920 q=60 ext=webp",
+    "web:thumbnail": "node index.js w=300 h=300 q=80 ext=webp",
+    "og:meta": "node index.js w=1200 h=630 q=80 fit=cover",
+    "resize:half-jpeg": "node index.js s=0.5 ext=jpg",
+    "convert:png-quality": "node index.js q=80 ext=png",
+    "resize:contain": "node index.js w=500 h=500 fit=contain",
+    "resize:width-only": "node index.js w=600"
   },
   "keywords": [
     "image"
