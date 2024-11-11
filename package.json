@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
+    "og": "node index.js q=80 width=1200 height=630",
+    "og:twitter": "node index.js q=80 width=1200 height=675",
     "compress": "node index.js q=80",
     "compress:png": "node index.js q=80 ext=png",
     "compress:jpg": "node index.js q=80 ext=jpg",

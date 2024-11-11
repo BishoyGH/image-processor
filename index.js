@@ -20,14 +20,15 @@ const argMap = Object.fromEntries(
 );
 
 // Parse command-line arguments with default values
-const q = argMap.q ? parseInt(argMap.q) : 100;
-const scale = argMap.scale ? parseFloat(argMap.scale) : null;
-const ext = argMap.ext || 'webp';
-const width = argMap.width ? parseInt(argMap.width) : null;
-const height = argMap.height ? parseInt(argMap.height) : null;
+const q = argMap.q ? parseInt(argMap.q) : 100; // quality
+const s = argMap.s ? parseFloat(argMap.s) : null; // scale
+const ext = argMap.ext || 'webp'; // extension
+const w = argMap.w ? parseInt(argMap.w) : null; // width
+const h = argMap.h ? parseInt(argMap.h) : null; // height
+const fit = argMap.fit || 'inside'; // fit mode (unchanged)
 
 // Function to convert images with customizable options
-const convertAndRenameImage = async (q, scale, ext, width, height) => {
+const convertAndRenameImage = async (q, s, ext, w, h, fit) => {
   try {
     // Read all files in the input folder
     const files = await fs.readdir(inputFolder);
@@ -45,19 +46,19 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
       const metadata = await image.metadata();
 
       // Calculate target width and height based on scale, if provided
-      let targetWidth = width || metadata.width;
-      let targetHeight = height || metadata.height;
-      if (scale) {
-        targetWidth = Math.round(metadata.width * scale);
-        targetHeight = Math.round(metadata.height * scale);
+      let targetWidth = w || metadata.width;
+      let targetHeight = h || metadata.height;
+      if (s) {
+        targetWidth = Math.round(metadata.width * s);
+        targetHeight = Math.round(metadata.height * s);
       }
 
-      // Construct output filename with suffixes for width, height, q, scale, and ext if specified
+      // Construct output filename with suffixes for width, height, quality, scale, and extension if specified
       const suffixes = [];
-      if (width && !scale) suffixes.push(`w${width}`);
-      if (height && !scale) suffixes.push(`h${height}`);
-      if (scale) suffixes.push(`s${scale * 100}`);
-      if (argMap.q) suffixes.push(`q${q}`); // Only add q suffix if explicitly provided
+      if (w && !s) suffixes.push(`w${w}`);
+      if (h && !s) suffixes.push(`h${h}`);
+      if (s) suffixes.push(`s${s * 100}`);
+      if (argMap.q) suffixes.push(`q${q}`); // Only add quality suffix if explicitly provided
 
       const newFileName = `${path.parse(file).name}_${suffixes.join(
         '_'
@@ -65,7 +66,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
       const outputFilePath = path.join(outputFolder, newFileName);
 
       try {
-        // Set up image processing options based on the specified ext
+        // Set up image processing options based on the specified extension
         let outputOptions = {};
         switch (ext) {
           case 'jpg':
@@ -75,7 +76,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
               .resize({
                 width: targetWidth,
                 height: targetHeight,
-                fit: 'inside',
+                fit: fit,
               })
               .jpeg(outputOptions)
               .toFile(outputFilePath);
@@ -86,7 +87,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
               .resize({
                 width: targetWidth,
                 height: targetHeight,
-                fit: 'inside',
+                fit: fit,
               })
               .png(outputOptions)
               .toFile(outputFilePath);
@@ -97,7 +98,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
               .resize({
                 width: targetWidth,
                 height: targetHeight,
-                fit: 'inside',
+                fit: fit,
               })
               .tiff(outputOptions)
               .toFile(outputFilePath);
@@ -109,7 +110,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
               .resize({
                 width: targetWidth,
                 height: targetHeight,
-                fit: 'inside',
+                fit: fit,
               })
               .webp(outputOptions)
               .toFile(outputFilePath);
@@ -117,7 +118,7 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
         }
 
         console.log(
-          `Converted ${file} to ${ext.toUpperCase()} with width ${targetWidth}, height ${targetHeight}, quality ${q}.`
+          `Converted ${file} to ${ext.toUpperCase()} with width ${targetWidth}, height ${targetHeight}, quality ${q}, and fit ${fit}.`
         );
         console.log(`Renamed output file to ${newFileName}.`);
       } catch (err) {
@@ -135,4 +136,4 @@ const convertAndRenameImage = async (q, scale, ext, width, height) => {
 };
 
 // Run the conversion and renaming with parsed command-line arguments
-convertAndRenameImage(q, scale, ext, width, height);
+convertAndRenameImage(q, s, ext, w, h, fit);
