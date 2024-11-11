@@ -95,7 +95,3 @@ The output folder will contain resized and converted images, with filenames refl
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-This `README.md` file provides an overview, installation instructions, parameter descriptions, and examples to help users understand and apply the script effectively.

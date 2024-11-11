@@ -1,18 +1,18 @@
 {
   "name": "image-processor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "og": "node index.js q=80 width=1200 height=630",
-    "og:twitter": "node index.js q=80 width=1200 height=675",
+    "og": "node index.js q=80 w=1200 h=630",
+    "og:twitter": "node index.js q=80 w=1200 h=675",
     "compress": "node index.js q=80",
     "compress:png": "node index.js q=80 ext=png",
     "compress:jpg": "node index.js q=80 ext=jpg",
-    "scale:75": "node index.js q=80 scale=0.75",
-    "scale:50": "node index.js q=80 scale=0.50",
-    "scale:25": "node index.js q=80 scale=0.25"
+    "scale:75": "node index.js q=80 s=0.75",
+    "scale:50": "node index.js q=80 s=0.50",
+    "scale:25": "node index.js q=80 s=0.25"
   },
   "keywords": [
     "image"
